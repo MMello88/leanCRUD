@@ -4,25 +4,25 @@ class Lean_CRUD_model extends CI_Model {
 
 	/* funções para tabela */
 	public function get_all_tabelas(){
-		$query = $this->db->get_where('tabela');
+		$query = $this->db->get_where('lean_tabela');
 		return $query->result_array();
 	}
 
 	public function get_tabelas()
 	{
-		$query = $this->db->get_where('tabela');
+		$query = $this->db->get_where('lean_tabela');
 	   	return $query->result_array();
 	}
 
 	public function get_tabelasByUserId($group_user_ref_id)
 	{
-		$query = $this->db->get_where('tabela', array('group_user_ref_id' => $group_user_ref_id));
+		$query = $this->db->get_where('lean_tabela', array('group_user_ref_id' => $group_user_ref_id));
 	    return $query->result_array();
 	}
 
 	public function get_tabelaById($tabela_id)
 	{
-		$query = $this->db->get_where('tabela', array('tabela_id' => $tabela_id));
+		$query = $this->db->get_where('lean_tabela', array('tabela_id' => $tabela_id));
 		return $query->row_array();
 	}
 
@@ -36,13 +36,13 @@ class Lean_CRUD_model extends CI_Model {
 	/* funcões para coluna */
 	public function get_colunas($tabela_ref_id)
 	{
-		$query = $this->db->get_where('coluna', array('tabela_ref_id' => $tabela_ref_id));
+		$query = $this->db->get_where('lean_coluna', array('tabela_ref_id' => $tabela_ref_id));
 		return $query->result_array();
 	}
 
 	public function get_colunaById($coluna_id)
 	{
-		$query = $this->db->get_where('coluna', array('coluna_id' => $coluna_id));
+		$query = $this->db->get_where('lean_coluna', array('coluna_id' => $coluna_id));
 		return $query->row_array();
 	}
 
@@ -59,8 +59,8 @@ class Lean_CRUD_model extends CI_Model {
 							      "       t.tabela_id, " .
 							      "       c.coluna,    " .
 							      "       c.display display_coluna " .
-							      "  FROM coluna c " .
-							      "  LEFT JOIN tabela t ON (t.tabela_id = c.tabela_ref_id) " .
+							      "  FROM lean_coluna c " .
+							      "  LEFT JOIN lean_tabela t ON (t.tabela_id = c.tabela_ref_id) " .
 							      " WHERE c.coluna_id = $coluna_id");
 		return $query->row_array();
 	}
@@ -80,7 +80,7 @@ class Lean_CRUD_model extends CI_Model {
 		    'auto_incr' => 'Sim'
 		);
 
-		return $this->db->insert('coluna', $data);
+		return $this->db->insert('lean_coluna', $data);
 	}
 	/* fim das funcões para coluna */
 
@@ -125,11 +125,11 @@ class Lean_CRUD_model extends CI_Model {
 		    'comando_sql' => $command
 		);
 
-		return $this->db->insert('log_script', $data);
+		return $this->db->insert('lean_log_script', $data);
 	}
 
 	public function get_log($dt_inicial = FALSE, $dt_final = FALSE){
-		$query = $this->db->get('log_script');
+		$query = $this->db->get('lean_log_script');
 		return $query->result_array();
 	}
 	/* fim das funções para Executar Script */
@@ -146,29 +146,29 @@ class Lean_CRUD_model extends CI_Model {
 								  "       cr.coluna coluna_ref,     " .
                                   "       cr.display display_coluna_ref, " .
                                   "       cr.coluna_id coluna_id_ref     " .
-								  "  FROM foreignkey f 				" .
-								  "  LEFT JOIN coluna c ON (c.coluna_id = f.coluna_ref_id)  " .
-								  "  LEFT JOIN tabela t ON (t.tabela_id = c.tabela_ref_id)  " .
-								  "  LEFT JOIN coluna cr ON (cr.coluna_id = f.coluna_fk_id) " .
+								  "  FROM lean_foreignkey f 				" .
+								  "  LEFT JOIN lean_coluna c ON (c.coluna_id = f.coluna_ref_id)  " .
+								  "  LEFT JOIN lean_tabela t ON (t.tabela_id = c.tabela_ref_id)  " .
+								  "  LEFT JOIN lean_coluna cr ON (cr.coluna_id = f.coluna_fk_id) " .
 								  " WHERE f.foreignkey_id = $foreignkey_id " );
 	  	return $query->row_array();
 	}
 
 	public function get_foreignKey($coluna_ref_id)
 	{
-		$query = $this->db->get_where('foreignkey', array('coluna_ref_id' => $coluna_ref_id));
+		$query = $this->db->get_where('lean_foreignkey', array('coluna_ref_id' => $coluna_ref_id));
 	  	return $query->result_array();
 	}
 
 	public function get_foreignKeyById($foreignkey_id)
 	{
-		$query = $this->db->get_where('foreignkey', array('foreignkey_id' => $foreignkey_id));
+		$query = $this->db->get_where('lean_foreignkey', array('foreignkey_id' => $foreignkey_id));
 	  	return $query->row_array();
 	}
 
 	public function get_foreignKeyByTabelaFK($tabela_fk_id)
 	{
-		$query = $this->db->get_where('foreignkey', array('tabela_fk_id' => $tabela_fk_id, 'tabela_pai' => 'Sim'));
+		$query = $this->db->get_where('lean_foreignkey', array('tabela_fk_id' => $tabela_fk_id, 'tabela_pai' => 'Sim'));
 	  	return $query->result_array();
 	}
 
@@ -182,10 +182,10 @@ class Lean_CRUD_model extends CI_Model {
 							    "        c.coluna,             " .
 							    "        cc.coluna as display, " .
 							    "        f.tabela_pai          " .
-							    "   FROM foreignkey f          " .
-							    "   JOIN tabela t ON (t.tabela_id = f.tabela_fk_id) " .
-							    "   JOIN coluna c ON (c.coluna_id = f.coluna_fk_id AND c.tabela_ref_id = f.tabela_fk_id) " .
-							    "   JOIN coluna cc ON (cc.coluna_id = f.coluna_display_fk_id AND cc.tabela_ref_id = f.tabela_fk_id) " .
+							    "   FROM lean_foreignkey f          " .
+							    "   JOIN lean_tabela t ON (t.tabela_id = f.tabela_fk_id) " .
+							    "   JOIN lean_coluna c ON (c.coluna_id = f.coluna_fk_id AND c.tabela_ref_id = f.tabela_fk_id) " .
+							    "   JOIN lean_coluna cc ON (cc.coluna_id = f.coluna_display_fk_id AND cc.tabela_ref_id = f.tabela_fk_id) " .
 							    "  WHERE f.coluna_ref_id = $coluna_ref_id " .
 							    "    AND f.tabela_pai = $tabela_pai " );
 	  return $query->result_array();

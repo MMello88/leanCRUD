@@ -37,7 +37,7 @@ class User_model extends CI_Model {
 			'group_user_ref_id' => 2,
 		);
 		
-		return $this->db->insert('users', $data);
+		return $this->db->insert('lean_users', $data);
 		
 	}
 	
@@ -52,7 +52,7 @@ class User_model extends CI_Model {
 	public function resolve_user_login($username, $password) {
 		
 		$this->db->select('password');
-		$this->db->from('users');
+		$this->db->from('lean_users');
 		$this->db->where('username', $username);
 		$hash = $this->db->get()->row('password');
 		
@@ -70,7 +70,7 @@ class User_model extends CI_Model {
 	public function get_user_id_from_username($username) {
 		
 		$this->db->select('user_id');
-		$this->db->from('users');
+		$this->db->from('lean_users');
 		$this->db->where('username', $username);
 
 		return $this->db->get()->row('user_id');
@@ -86,7 +86,7 @@ class User_model extends CI_Model {
 	 */
 	public function get_user($user_id) {
 		
-		$this->db->from('users');
+		$this->db->from('lean_users');
 		$this->db->where('user_id', $user_id);
 		return $this->db->get()->row();
 		

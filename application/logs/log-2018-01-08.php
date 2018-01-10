@@ -21,3 +21,5 @@ ERROR - 2018-01-08 17:42:57 --> 404 Page Not Found: Admin/gerenciamento_cadastro
 ERROR - 2018-01-08 17:43:00 --> 404 Page Not Found: Admin/gerenciamento_cadastro
 ERROR - 2018-01-08 17:43:06 --> 404 Page Not Found: Admin/gerenciamento_cadastro
 ERROR - 2018-01-08 18:25:16 --> Query error: Table 'leancrud_db.cidade' doesn't exist - Invalid query: SHOW COLUMNS FROM Cidade WHERE FIELD = 'Cidade_id'
+ERROR - 2018-01-08 22:59:52 --> Severity: error --> Exception: The table name does not exist. Please check you database and try again. C:\xampp\htdocs\leanCRUD\application\libraries\Grocery_CRUD.php 5014
+ERROR - 2018-01-08 23:13:12 --> Query error: You can't delete all columns with ALTER TABLE; use DROP TABLE instead - Invalid query: ALTER TABLE `filho` DROP COLUMN `cidade_id`

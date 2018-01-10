@@ -61,7 +61,7 @@ class Admin extends CI_Controller {
 		
 		if ($_SESSION['group_user_ref_id'] !== 1)
 			$crud->where('group_user_id',$_SESSION['group_user_ref_id']);
-		$crud->set_table('tabela');
+		$crud->set_table('lean_tabela');
 		$crud->set_subject('Cadastro de Tabelas');
 		$crud->required_fields('tabela','display');
 		
@@ -69,9 +69,9 @@ class Admin extends CI_Controller {
 		$crud->display_as('tabela','Tabela');
 		$crud->display_as('display','Nome de Apresentação');
 
-		$crud->columns('tabela_id','tabela','display');
+		$crud->columns('tabela_id','lean_tabela','display');
 
-		$crud->set_relation('group_user_ref_id', 'group_users', 'groupname');
+		$crud->set_relation('group_user_ref_id', 'lean_group_users', 'groupname');
 
 		$crud->add_fields('tabela','display', 'group_user_ref_id');
 		$crud->edit_fields('tabela','display', 'group_user_ref_id');
@@ -96,7 +96,7 @@ class Admin extends CI_Controller {
 		$crud = new grocery_CRUD();
 
 		$crud->where('tabela_ref_id',$id);
-		$crud->set_table('coluna');
+		$crud->set_table('lean_coluna');
 		$crud->set_subject('Cadastro de Colunas');
 		$crud->required_fields('coluna','display','PK','FK','data_type','not_null','auto_incr');
 
@@ -140,7 +140,7 @@ class Admin extends CI_Controller {
 		$crud = new grocery_CRUD();
 
 		$crud->where('coluna_ref_id',$id);
-		$crud->set_table('foreignkey');
+		$crud->set_table('lean_foreignkey');
 		$crud->set_subject('Cadastro da Chave Estrangeira (FK)');
 		$crud->required_fields('tabela_fk_id', 'coluna_fk_id','coluna_display_fk_id');
 
@@ -153,9 +153,9 @@ class Admin extends CI_Controller {
 
 		$crud->columns('tabela_fk_id', 'coluna_fk_id', 'coluna_display_fk_id', 'tabela_pai');
 
-		$crud->set_relation('tabela_fk_id', 'tabela', 'tabela');
-		$crud->set_relation('coluna_fk_id', 'coluna', 'coluna');
-		$crud->set_relation('coluna_display_fk_id', 'coluna', 'coluna');
+		$crud->set_relation('tabela_fk_id', 'lean_tabela', 'tabela');
+		$crud->set_relation('coluna_fk_id', 'lean_coluna', 'coluna');
+		$crud->set_relation('coluna_display_fk_id', 'lean_coluna', 'coluna');
 
 		$crud->add_fields('coluna_ref_id','tabela_fk_id', 'coluna_fk_id', 'coluna_display_fk_id', 'tabela_pai');
 		$crud->edit_fields('tabela_fk_id', 'coluna_fk_id', 'coluna_display_fk_id', 'tabela_pai');
@@ -169,13 +169,13 @@ class Admin extends CI_Controller {
 		$fields = array(
 			// first field:
 			'tabela_fk_id' => array( // first dropdown name
-			'table_name' => 'tabela', // table of country
+			'table_name' => 'lean_tabela', // table of country
 			'title' => 'tabela', // country title
 			'relate' => null // the first dropdown hasn't a relation
 			),
 			// second field
 			'coluna_fk_id' => array( // second dropdown name
-			'table_name' => 'coluna', // table of state
+			'table_name' => 'lean_coluna', // table of state
 			'title' => 'coluna', // state title
 			'id_field' => 'coluna_id', // table of state: primary key
 			'relate' => 'tabela_ref_id', // table of state:
@@ -184,7 +184,7 @@ class Admin extends CI_Controller {
 		);
 
 		$config = array(
-			'main_table' => 'foreignkey',
+			'main_table' => 'lean_foreignkey',
 			'main_table_primary' => 'foreignkey_id',
 			"url" => base_url() . 'index.php/' . __CLASS__ . '/', //	.$id.'/add' //path to method
 			'ajax_loader' => base_url() . 'ajax-loader.gif', // path to ajax-loader image. It's an optional parameter
@@ -201,13 +201,13 @@ class Admin extends CI_Controller {
 		$fields = array(
 			// first field:
 			'tabela_fk_id' => array( // first dropdown name
-			'table_name' => 'tabela', // table of country
+			'table_name' => 'lean_tabela', // table of country
 			'title' => 'tabela', // country title
 			'relate' => null // the first dropdown hasn't a relation
 			),
 			// second field
 			'coluna_display_fk_id' => array( // second dropdown name
-			'table_name' => 'coluna', // table of state
+			'table_name' => 'lean_coluna', // table of state
 			'title' => 'coluna', // state title
 			'id_field' => 'coluna_id', // table of state: primary key
 			'relate' => 'tabela_ref_id', // table of state:
@@ -216,7 +216,7 @@ class Admin extends CI_Controller {
 		);
 
 		$config = array(
-			'main_table' => 'foreignkey',
+			'main_table' => 'lean_foreignkey',
 			'main_table_primary' => 'foreignkey_id',
 			"url" => base_url() . 'index.php/' . __CLASS__ . '/', //	.$id.'/add' //path to method
 			'ajax_loader' => base_url() . 'ajax-loader.gif', // path to ajax-loader image. It's an optional parameter
@@ -237,13 +237,12 @@ class Admin extends CI_Controller {
 		$output->output.= $js;
 
 		$output->output.= $js1;
-
-		//$output = $crud->render();
 		 
 		$this->_example_output($output);
 	}
 
-	function get_colunasByIdTabela($id){
+	function get_colunasByIdTabela($id)
+	{
 		if ($_SESSION['group_user_ref_id'] !== 1) 
 			redirect("/admin");
 
@@ -366,7 +365,6 @@ class Admin extends CI_Controller {
 
 	function script_foreignkey_insert($post_array,$primary_key)
 	{
-
 		extract($post_array);
 
 		$row_coluna_cons = $this->lean_crud_model->get_colunaById($coluna_ref_id);
@@ -430,7 +428,6 @@ class Admin extends CI_Controller {
 
 	function script_foreignkey_delete($primary_key)
 	{
-
 		$foreignkey = $this->lean_crud_model->get_foreignKeyById($primary_key);
 
 		$row_coluna_old = $this->lean_crud_model->get_colunaById($foreignkey['coluna_ref_id']);
@@ -445,6 +442,5 @@ class Admin extends CI_Controller {
   					DROP FOREIGN KEY FK_$tabela_old"."_"."$coluna_old; ";
 
   		$this->lean_crud_model->ExecutarScript($row_coluna_old['tabela_ref_id'], $script);
-
 	}
 }
