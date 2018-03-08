@@ -1,0 +1,29 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2018-03-08 17:19:46 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:24:15 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:24:16 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:24:16 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:26:39 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:28:15 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:28:18 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:28:20 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:28:27 --> 404 Page Not Found: Assets/template_admin
+ERROR - 2018-03-08 17:34:01 --> 404 Page Not Found: Assets/template_focus
+ERROR - 2018-03-08 17:34:19 --> 404 Page Not Found: Assets/template_focus
+ERROR - 2018-03-08 17:35:53 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:35:53 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:39:47 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:39:47 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:41:25 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:41:25 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:43:37 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:43:37 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:43:48 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:43:49 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:44:02 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:44:02 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:45:04 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:45:04 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:46:03 --> 404 Page Not Found: Assets/tamplate_focus
+ERROR - 2018-03-08 17:46:03 --> 404 Page Not Found: Assets/tamplate_focus

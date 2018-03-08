@@ -9,140 +9,286 @@
   <meta name="author" content="">
   <title>leanCRUD - Facilidade e Praticidade em Criar um Cadastro</title>
 
+  <!-- ================= Favicon ================== -->
+  <!-- Standard -->
+  <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+  <!-- Retina iPad Touch Icon-->
+  <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+  <!-- Retina iPhone Touch Icon-->
+  <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+  <!-- Standard iPad Touch Icon-->
+  <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+  <!-- Standard iPhone Touch Icon-->
+  <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+
   <!-- Grocery Theme CSS-->
   <?php foreach($css_files as $file): ?>
   <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
   <?php endforeach; ?>
+
   <?php if (empty($css_files)) { ?>
   <!-- Bootstrap core CSS-->
   <link href="<?php echo base_url('assets/template_admin/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
   <?php } ?>
+
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url('assets/template_admin/vendor/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
   <!-- Page level plugin CSS-->
   <link href="<?php echo base_url('assets/template_admin/vendor/datatables/dataTables.bootstrap4.css'); ?>" rel="stylesheet">
   <!-- Custom styles for this template-->
-  <link href="<?php echo base_url('assets/template_admin/css/sb-admin.css'); ?>" rel="stylesheet">
+  <link href="<?php echo base_url('assets/css/login/sb-admin.css'); ?>" rel="stylesheet">
 
+  <!-- Styles -->
+  <link href="<?= base_url('assets/css/lib/weather-icons.css'); ?>" rel="stylesheet" />
+  <link href="<?= base_url('assets/css/lib/owl.carousel.min.css'); ?>" rel="stylesheet" />
+  <link href="<?= base_url('assets/css/lib/owl.theme.default.min.css'); ?>" rel="stylesheet" />
+  <link href="<?= base_url('assets/css/lib/font-awesome.min.css'); ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/css/lib/themify-icons.css'); ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/css/lib/menubar/sidebar.css'); ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/css/lib/bootstrap.min.css'); ?>" rel="stylesheet">
 
+  <link href="<?= base_url('assets/css/lib/helper.css'); ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/css/style.css'); ?>" rel="stylesheet">
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-  <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="">leanCRUD - <?= $_SESSION['username'] ?></a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="<?php echo site_url('admin')?>">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Dashboard</span>
-          </a>
-        </li>
-        <?php if ($_SESSION['group_user_ref_id'] === 1)  : ?>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Cadastro de Tabelas">
-          <a class="nav-link" href="<?php echo site_url('admin/lean_tabela')?>">
-            <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Cadastro de Tabelas</span>
-          </a>
-        </li>
-        <?php endif; ?>
+<body>
+  <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+      <div class="nano">
+          <div class="nano-content">
+              <div class="logo"><a href="<?= site_url('admin')?>"><!-- <img src="assets/images/logo.png" alt="" /> --><span>Lean Crud</span></a></div>
+              <ul>
+                  <li class="label">Main</li>
+                  <li class="active"><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                      <ul>
+                          <li><a href="index.html">Cadastro de Tabela</a></li>
+                      </ul>
+                  </li>
 
-        <?php if (!empty($sublink)) : ?>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tabelas Geradas">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-sitemap"></i>
-            <span class="nav-link-text">Tabelas Geradas</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
-            <?php echo $sublink; ?>
-          </ul>
-        </li>
-        <?php endif; ?>
-
-      </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <div class="content-wrapper">
-    <div class="container-fluid">
-      <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="<?php echo site_url('admin/lean_tabela')?>">Tabelas</a>
-        </li>
-        
-      </ol>
-        <div class="m-3">
-            <?php echo $output; ?>
-        </div>      
-      </div>
-    </div>
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
-    <footer class="sticky-footer">
-      <div class="container">
-        <div class="text-center">
-          <small>Copyright © leanCRUD 2018</small>
-        </div>
-      </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Pronto para sair?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
+                  <li class="label">Perfil</li>
+                  <li><a><i class="ti-close"></i> Logout</a></li>
+              </ul>
           </div>
-          <div class="modal-body">Realmente deseja sair do leadCRUD?</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?= base_url('logout') ?>">Logout</a>
-          </div>
-        </div>
       </div>
-    </div> 
-    
-    <!-- Bootstrap core JavaScript-->
-    <script src="<?php echo base_url('assets/template_admin/vendor/jquery/jquery.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/template_admin/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="<?php echo base_url('assets/template_admin/vendor/jquery-easing/jquery.easing.min.js'); ?>"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="<?php echo base_url('assets/template_admin/vendor/chart.js/Chart.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/template_admin/vendor/datatables/jquery.dataTables.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/template_admin/vendor/datatables/dataTables.bootstrap4.js'); ?>"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="<?php echo base_url('assets/template_admin/js/sb-admin.min.js'); ?>"></script>
-    
-
-    <?php foreach($js_files as $file): ?>
-        <script src="<?php echo $file; ?>"></script>
-    <?php endforeach; ?>
-
   </div>
+  <!-- /# sidebar -->
+
+
+  <div class="header">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="float-left">
+                      <div class="hamburger sidebar-toggle">
+                          <span class="line"></span>
+                          <span class="line"></span>
+                          <span class="line"></span>
+                      </div>
+                  </div>
+                  <div class="float-right">
+                      <ul>
+
+                          <li class="header-icon dib"><i class="ti-bell"></i>
+                              <div class="drop-down">
+                                  <div class="dropdown-content-heading">
+                                      <span class="text-left">Recent Notifications</span>
+                                  </div>
+                                  <div class="dropdown-content-body">
+                                      <ul>
+                                          <li>
+                                              <a href="#">
+                                                  <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/3.jpg" alt="" />
+                                                  <div class="notification-content">
+                                                      <small class="notification-timestamp pull-right">02:34 PM</small>
+                                                      <div class="notification-heading">Mr. John</div>
+                                                      <div class="notification-text">5 members joined today </div>
+                                                  </div>
+                                              </a>
+                                          </li>
+                                          <li class="text-center">
+                                              <a href="#" class="more-link">See All</a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </li>
+                          <li class="header-icon dib"><i class="ti-email"></i>
+                              <div class="drop-down">
+                                  <div class="dropdown-content-heading">
+                                      <span class="text-left">2 New Messages</span>
+                                      <a href="email.html"><i class="ti-pencil-alt pull-right"></i></a>
+                                  </div>
+                                  <div class="dropdown-content-body">
+                                      <ul>
+                                          <li class="notification-unread">
+                                              <a href="#">
+                                                  <img class="pull-left m-r-10 avatar-img" src="assets/images/avatar/1.jpg" alt="" />
+                                                  <div class="notification-content">
+                                                      <small class="notification-timestamp pull-right">02:34 PM</small>
+                                                      <div class="notification-heading">Michael Qin</div>
+                                                      <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
+                                                  </div>
+                                              </a>
+                                          </li>
+                                          <li class="text-center">
+                                              <a href="#" class="more-link">See All</a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </li>
+                          <li class="header-icon dib"><span class="user-avatar">John <i class="ti-angle-down f-s-10"></i></span>
+                              <div class="drop-down dropdown-profile">
+                                  <div class="dropdown-content-heading">
+                                      <span class="text-left">Upgrade Now</span>
+                                      <p class="trial-day">30 Days Trail</p>
+                                  </div>
+                                  <div class="dropdown-content-body">
+                                      <ul>
+                                          <li><a href="#"><i class="ti-user"></i> <span>Profile</span></a></li>
+                                          <li><a href="#"><i class="ti-power-off"></i> <span>Logout</span></a></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="content-wrap">
+      <div class="main">
+          <div class="container-fluid">
+              <!-- /# main titulo -->
+              <div class="row"> 
+                  <div class="col-lg-8 p-r-0 title-margin-right">
+                      <div class="page-header">
+                          <div class="page-title">
+                              <h1><?= $_SESSION['username'] ?>, <span>Seja bem vindo</span></h1>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- /# column -->
+                  <div class="col-lg-4 p-l-0 title-margin-left">
+                      <div class="page-header">
+                          <div class="page-title">
+                              <ol class="breadcrumb">
+                                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                  <li class="breadcrumb-item active">Home</li>
+                              </ol>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- /# column -->
+              </div>
+              <!-- /# fim main titulo -->
+
+              <!-- /# row -->
+              <section id="main-content">
+
+                  <div class="row">
+                      <div class="col-lg-3">
+                          <div class="card">
+                              <div class="stat-widget-two">
+                                  <div class="stat-content">
+                                      <div class="stat-text">Cadastro</div>
+                                      <div class="stat-digit">Tabelas</div>
+                                  </div>
+                                  <div class="progress">
+                                      <div class="progress-bar progress-bar-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- /# row -->
+
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div class="footer">
+                              <p>2018 © Admin Board. - <a href="#">example.com</a></p>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+          </div>
+      </div>
+  </div>
+  <div id="search">
+      <button type="button" class="close">×</button>
+      <form>
+          <input type="search" value="" placeholder="type keyword(s) here" />
+          <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+  </div>
+  <!-- jquery vendor -->
+  <script src="assets/js/lib/jquery.min.js"></script>
+  <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
+  <!-- nano scroller -->
+  <script src="assets/js/lib/menubar/sidebar.js"></script>
+  <script src="assets/js/lib/preloader/pace.min.js"></script>
+  <!-- sidebar -->
+  <script src="assets/js/lib/bootstrap.min.js"></script>
+
+  <!-- bootstrap -->
+
+  <script src="assets/js/lib/circle-progress/circle-progress.min.js"></script>
+  <script src="assets/js/lib/circle-progress/circle-progress-init.js"></script>
+
+  <script src="assets/js/lib/morris-chart/raphael-min.js"></script>
+  <script src="assets/js/lib/morris-chart/morris.js"></script>
+  <script src="assets/js/lib/morris-chart/morris-init.js"></script>
+
+  <!--  flot-chart js -->
+  <script src="assets/js/lib/flot-chart/jquery.flot.js"></script>
+  <script src="assets/js/lib/flot-chart/jquery.flot.resize.js"></script>
+  <script src="assets/js/lib/flot-chart/flot-chart-init.js"></script>
+  <!-- // flot-chart js -->
+
+
+  <script src="assets/js/lib/vector-map/jquery.vmap.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/jquery.vmap.min.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.algeria.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.argentina.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.brazil.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.france.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.germany.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.greece.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.iran.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.iraq.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.russia.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.tunisia.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.europe.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.usa.js"></script>
+  <!-- scripit init-->
+  <script src="assets/js/lib/vector-map/vector.init.js"></script>
+
+  <script src="assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+  <script src="assets/js/lib/weather/weather-init.js"></script>
+  <script src="assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+  <script src="assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+  <script src="assets/js/scripts.js"></script>
+  <!-- scripit init-->
+
 </body>
 
 </html>
