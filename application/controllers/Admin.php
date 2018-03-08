@@ -69,7 +69,7 @@ class Admin extends CI_Controller {
 		$crud->display_as('tabela','Tabela');
 		$crud->display_as('display','Nome de Apresentação');
 
-		$crud->columns('tabela_id','lean_tabela','display');
+		$crud->columns('tabela_id','	tabela','display');
 
 		$crud->set_relation('group_user_ref_id', 'lean_group_users', 'groupname');
 

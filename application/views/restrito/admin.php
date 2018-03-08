@@ -11,11 +11,11 @@
 
   <!-- Grocery Theme CSS-->
   <?php foreach($css_files as $file): ?>
-    <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
+  <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
   <?php endforeach; ?>
   <?php if (empty($css_files)) { ?>
-    <!-- Bootstrap core CSS-->
-    <link href="<?php echo base_url('assets/template_admin/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
+  <!-- Bootstrap core CSS-->
+  <link href="<?php echo base_url('assets/template_admin/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
   <?php } ?>
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url('assets/template_admin/vendor/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
@@ -23,8 +23,7 @@
   <link href="<?php echo base_url('assets/template_admin/vendor/datatables/dataTables.bootstrap4.css'); ?>" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url('assets/template_admin/css/sb-admin.css'); ?>" rel="stylesheet">
-  <!-- Bootstrap core JavaScript-->
-  <script src="<?php echo base_url('assets/template_admin/vendor/jquery/jquery.min.js'); ?>"></script>
+
 
 </head>
 
@@ -126,6 +125,8 @@
       </div>
     </div> 
     
+    <!-- Bootstrap core JavaScript-->
+    <script src="<?php echo base_url('assets/template_admin/vendor/jquery/jquery.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/template_admin/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
     <!-- Core plugin JavaScript-->
     <script src="<?php echo base_url('assets/template_admin/vendor/jquery-easing/jquery.easing.min.js'); ?>"></script>

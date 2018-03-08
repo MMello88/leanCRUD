@@ -12,11 +12,11 @@
 
 	<!-- css -->
   <!-- Bootstrap core CSS-->
-  <link href="<?= base_url('assets/template_admin/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
   <!-- Custom fonts for this template-->
-  <link href="<?= base_url('assets/template_admin/vendor/font-awesome/css/font-awesome.min.css') ?>" rel="stylesheet" type="text/css">
+  <link href="<?= base_url('assets/css/login/font-awesome.min.css') ?>" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
-  <link href="<?= base_url('assets/template_admin/css/sb-admin.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/css/login/sb-admin.min.css') ?>" rel="stylesheet">
 </head>
 <body class="bg-dark pt-5">
 
