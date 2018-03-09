@@ -60,16 +60,8 @@
                   <?php endif; ?>
                   </li>
 
-                  <?php if (!empty($sublink)) : ?>
-                  <li class="active"><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Cadastros <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                    <ul>
-                      <?= $sublink; ?>
-                    </ul>
-                  </li>
-                  <?php endif; ?>
-
                   <li class="label">Perfil</li>
-                  <li><a href="<?= base_url('logout') ?>"><i class="ti-close"></i> Logout</a></li>
+                  <li><a><i class="ti-close"></i> Logout</a></li>
               </ul>
           </div>
       </div>
@@ -189,10 +181,9 @@
               </div>
               <!-- /# fim main titulo -->
 
-              
+              <!-- /# row -->
               <section id="main-content">
-                <?php if (isset($main_page)) : ?>
-                  <!-- /# row -->
+
                   <div class="row">
                       <div class="col-lg-3">
                           <div class="card">
@@ -209,29 +200,11 @@
                       </div>
                   </div>
                   <!-- /# row -->
-                <?php else : ?>
-
-                  <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card nestable-cart">
-                            <div class="card-title">
-                                <h4>USA</h4>
-                                <div class="card-title-right-icon">
-                                    <?php echo $output; ?>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                  </div>
-
-                <?php endif; ?>
-
-                  
 
                   <div class="row">
                       <div class="col-lg-12">
                           <div class="footer">
-                              <p>2018 © Lean Crud. - <a href="<?= site_url(); ?>"><?= site_url(); ?></a></p>
+                              <p>2018 © Admin Board. - <a href="#">example.com</a></p>
                           </div>
                       </div>
                   </div>
@@ -247,75 +220,71 @@
       </form>
   </div>
   <!-- jquery vendor -->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/jquery.min.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/jquery.nanoscroller.min.js'); ?>"></script>
+  <script src="assets/js/lib/jquery.min.js"></script>
+  <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
   <!-- nano scroller -->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/menubar/sidebar.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/preloader/pace.min.js'); ?>"></script>
+  <script src="assets/js/lib/menubar/sidebar.js"></script>
+  <script src="assets/js/lib/preloader/pace.min.js"></script>
   <!-- sidebar -->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/bootstrap.min.js'); ?>"></script>
+  <script src="assets/js/lib/bootstrap.min.js"></script>
 
   <!-- bootstrap -->
 
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/circle-progress/circle-progress.min.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/circle-progress/circle-progress-init.js'); ?>"></script>
+  <script src="assets/js/lib/circle-progress/circle-progress.min.js"></script>
+  <script src="assets/js/lib/circle-progress/circle-progress-init.js"></script>
 
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/morris-chart/raphael-min.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/morris-chart/morris.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/morris-chart/morris-init.js'); ?>"></script>
+  <script src="assets/js/lib/morris-chart/raphael-min.js"></script>
+  <script src="assets/js/lib/morris-chart/morris.js"></script>
+  <script src="assets/js/lib/morris-chart/morris-init.js"></script>
 
   <!--  flot-chart js -->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/flot-chart/jquery.flot.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/flot-chart/jquery.flot.resize.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/flot-chart/flot-chart-init.js'); ?>"></script>
+  <script src="assets/js/lib/flot-chart/jquery.flot.js"></script>
+  <script src="assets/js/lib/flot-chart/jquery.flot.resize.js"></script>
+  <script src="assets/js/lib/flot-chart/flot-chart-init.js"></script>
   <!-- // flot-chart js -->
 
 
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/jquery.vmap.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/jquery.vmap.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/jquery.vmap.min.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/jquery.vmap.min.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/jquery.vmap.sampledata.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.world.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.algeria.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.algeria.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.argentina.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.argentina.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.brazil.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.brazil.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.france.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.france.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.germany.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.germany.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.greece.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.greece.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.iran.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.iran.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.iraq.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.iraq.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.russia.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.russia.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.tunisia.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.tunisia.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.europe.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.europe.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/country/jquery.vmap.usa.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/country/jquery.vmap.usa.js"></script>
   <!-- scripit init-->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/vector-map/vector.init.js'); ?>"></script>
+  <script src="assets/js/lib/vector-map/vector.init.js"></script>
 
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/weather/jquery.simpleWeather.min.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/weather/weather-init.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/owl-carousel/owl.carousel.min.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/owl-carousel/owl.carousel-init.js'); ?>"></script>
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/scripts.js'); ?>"></script>
+  <script src="assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+  <script src="assets/js/lib/weather/weather-init.js"></script>
+  <script src="assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+  <script src="assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+  <script src="assets/js/scripts.js"></script>
   <!-- scripit init-->
 
-
-    <?php foreach($js_files as $file): ?>
-        <script src="<?php echo $file; ?>"></script>
-    <?php endforeach; ?>
 </body>
 
 </html>

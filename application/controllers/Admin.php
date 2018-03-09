@@ -34,21 +34,15 @@ class Admin extends CI_Controller {
 
 	public function _example_output($output = null)
 	{
-		if ($_SESSION['group_user_ref_id'] === 1)
-			$rows = $this->lean_crud_model->get_tabelas();
-		else
-			$rows = $this->lean_crud_model->get_tabelasByUserId($_SESSION['group_user_ref_id']);
-		$sublink = '';
-		foreach ($rows as $row) {
-			$sublink .=  "<li><a href='".site_url("admin/leanCRUD/{$row['tabela_id']}")."'>{$row['display']}</a></li>";
-		}
-		$this->data['sublink'] = $sublink;
+		$this->montar_menu();
+		
 		$output = array_merge($this->data,(array)$output);
 		$this->load->view('restrito/admin.php',$output);
 	}
 
 	public function index()
 	{
+		$this->data['main_page'] = 'isset';
 		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
 	}
 
@@ -442,5 +436,17 @@ class Admin extends CI_Controller {
   					DROP FOREIGN KEY FK_$tabela_old"."_"."$coluna_old; ";
 
   		$this->lean_crud_model->ExecutarScript($row_coluna_old['tabela_ref_id'], $script);
+	}
+
+	function montar_menu(){
+		if ($_SESSION['group_user_ref_id'] === 1)
+			$rows = $this->lean_crud_model->get_tabelas();
+		else
+			$rows = $this->lean_crud_model->get_tabelasByUserId($_SESSION['group_user_ref_id']);
+		$sublink = '';
+		foreach ($rows as $row) {
+			$sublink .= "<li><a href='".site_url("admin/leanCRUD/{$row['tabela_id']}")."'>{$row['display']}</a></li>";
+		}
+		$this->data['sublink'] = $sublink;		
 	}
 }
