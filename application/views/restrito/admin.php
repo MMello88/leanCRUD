@@ -58,7 +58,7 @@
                   <?php if (!empty($menu['menu_titulo'])) : ?>
                     <li class="label"><?= $menu['menu_titulo']; ?></li>
                   <?php endif; ?>
-                    <li class="active"><a class="sidebar-sub-toggle"><i class="ti-home"></i> <?= $menu['nome_menu']; ?> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                    <li class="active"><a class="sidebar-sub-toggle"><i class="<?= $menu['tag_i']; ?>"></i> <?= $menu['nome_menu']; ?> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                   <ul>
                   <?php foreach ($menu['submenus'] as $submenu) : ?>
                     <?php if (empty($submenu['slug'])) : ?>
@@ -86,7 +86,7 @@
                   </li>
                 <?php endforeach; ?>
               <?php endif; ?>
-              
+
                 <li class="label"><?= $_SESSION['username'] ?></li>
                 <li><a href="<?= base_url('logout') ?>"><i class="ti-close"></i> Logout</a></li>
               </ul>
@@ -254,7 +254,9 @@
                     <div class="col-lg-12">
                         <div class="card nestable-cart">
                             <div class="card-title">
-                                <h4>USA</h4>
+                                <?php if (isset($tabela)) : ?>
+                                <h4><?= $tabela['display']; ?></h4>
+                                <?php endif; ?>
                                 <div class="card-title-right-icon">
                                     <?php echo $output; ?>
                                 </div>

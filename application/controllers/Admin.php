@@ -22,6 +22,7 @@ class Admin extends CI_Controller {
 	{
 		$lean_crud = new lean_CRUD();
 		$lean_crud->build_CRUD($tabela_id);
+		$this->montar_tabela($tabela_id);
 		$this->_example_output($lean_crud->get_output());
 	}
 
@@ -29,6 +30,7 @@ class Admin extends CI_Controller {
 	{
 		$lean_crud = new lean_CRUD();
 		$lean_crud->build_CRUD_item($foreignkey_id, $primary_key);
+		$this->montar_tabela_by_foreignkey($foreignkey_id);
 		$this->_example_output($lean_crud->get_output());
 	}
 
@@ -444,5 +446,14 @@ class Admin extends CI_Controller {
 		}else{
 			$this->data['menus'] = $this->lean_crud_model->get_menu($_SESSION['group_user_ref_id']);
 		}
+	}
+
+	function montar_tabela($tabela_id){
+		$this->data['tabela'] = $this->lean_crud_model->get_tabelaById($tabela_id);
+	}
+
+	function montar_tabela_by_foreignkey($foreignkey_id){
+		$foreignkKey = $this->lean_crud_model->get_foreignKeyByFkId($foreignkey_id);
+		$this->montar_tabela($foreignkKey['tabela_id']);
 	}
 }
