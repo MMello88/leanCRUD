@@ -63,7 +63,7 @@ class Admin extends CI_Controller {
 		$crud->display_as('tabela','Tabela');
 		$crud->display_as('display','Nome de Apresentação');
 
-		$crud->columns('tabela_id','	tabela','display');
+		$crud->columns('tabela_id','tabela','display');
 
 		$crud->set_relation('group_user_ref_id', 'lean_group_users', 'groupname');
 
@@ -313,7 +313,6 @@ class Admin extends CI_Controller {
 		$this->lean_crud_model->ExecutarScript($tabela_ref_id, $script);
 	}
 
-
 	function script_couna_update($post_array,$primary_key)
 	{
 		extract($post_array);
@@ -439,14 +438,11 @@ class Admin extends CI_Controller {
 	}
 
 	function montar_menu(){
-		if ($_SESSION['group_user_ref_id'] === 1)
-			$rows = $this->lean_crud_model->get_tabelas();
-		else
-			$rows = $this->lean_crud_model->get_tabelasByUserId($_SESSION['group_user_ref_id']);
-		$sublink = '';
-		foreach ($rows as $row) {
-			$sublink .= "<li><a href='".site_url("admin/leanCRUD/{$row['tabela_id']}")."'>{$row['display']}</a></li>";
+		if ($_SESSION['group_user_ref_id'] === 1){		
+			$this->data['menus_admin'] = $this->lean_crud_model->get_menu($_SESSION['group_user_ref_id']);
+			$this->data['menus'] = $this->lean_crud_model->get_menu($_SESSION['group_user_ref_id'], FALSE);
+		}else{
+			$this->data['menus'] = $this->lean_crud_model->get_menu($_SESSION['group_user_ref_id']);
 		}
-		$this->data['sublink'] = $sublink;		
 	}
 }

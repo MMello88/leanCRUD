@@ -2,6 +2,25 @@
 
 class Lean_CRUD_model extends CI_Model {
 
+
+	public function get_menu($group_user_ref_id, $use_igual = TRUE){
+		if ($use_igual === TRUE) 
+			$query = $this->db->get_where('lean_menu', array('group_user_ref_id' => $group_user_ref_id));
+		else
+			$query = $this->db->get_where('lean_menu', array('group_user_ref_id !=' => $group_user_ref_id));
+		
+	    $rows = $query->result_array();
+	    foreach ($rows as $key => $row) {
+	    	$rows[$key]['submenus'] = $this->get_submenus($row['lean_menu_id']);
+	    }
+	    return $rows;
+	}
+
+	public function get_submenus($lean_menu_id){
+		$query = $this->db->get_where('lean_submenu', array('lean_menu_id' => $lean_menu_id));
+	    return $query->result_array();
+	}
+
 	/* funções para tabela */
 	public function get_all_tabelas(){
 		$query = $this->db->get_where('lean_tabela');

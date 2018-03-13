@@ -21,6 +21,7 @@
   <!-- Standard iPhone Touch Icon-->
   <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
 
+
   <!-- Grocery Theme CSS-->
   <?php foreach($css_files as $file): ?>
   <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
@@ -28,9 +29,10 @@
 
   <?php if (empty($css_files)) { ?>
   <!-- Bootstrap core CSS-->
-  <link href="<?php echo base_url('assets/template_admin/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/template_admin/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
   <?php } ?>
 
+  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/jquery.min.js'); ?>"></script>
 
   <!-- Styles -->
   <link href="<?= base_url('assets/tamplate_focus/assets/css/lib/weather-icons.css'); ?>" rel="stylesheet" />
@@ -51,25 +53,42 @@
           <div class="nano-content">
               <div class="logo"><a href="<?= site_url('admin')?>"><!-- <img src="assets/images/logo.png" alt="" /> --><span>Lean Crud</span></a></div>
               <ul>
-                  <li class="label">Main</li>
-                  <li class="active"><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                  <?php if ($_SESSION['group_user_ref_id'] === 1)  : ?>
-                      <ul>
-                          <li><a href="<?= site_url('admin/lean_tabela'); ?>">Cadastro de Tabela</a></li>
-                      </ul>
+              <?php if (isset($menus_admin))  : ?>
+                <?php foreach ($menus_admin as $menu) : ?>
+                  <?php if (!empty($menu['menu_titulo'])) : ?>
+                    <li class="label"><?= $menu['menu_titulo']; ?></li>
                   <?php endif; ?>
-                  </li>
-
-                  <?php if (!empty($sublink)) : ?>
-                  <li class="active"><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Cadastros <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                    <li class="active"><a class="sidebar-sub-toggle"><i class="ti-home"></i> <?= $menu['nome_menu']; ?> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                  <ul>
+                  <?php foreach ($menu['submenus'] as $submenu) : ?>
+                    <?php if (empty($submenu['slug'])) : ?>
+                      <li><a href='<?= site_url("admin/leanCRUD/{$submenu['tabela_id']}"); ?>'><?= $submenu['nome_submenu']; ?></a></li>
+                    <?php else : ?> 
+                      <li><a href='<?= site_url("admin/{$submenu['slug']}"); ?>'><?= $submenu['nome_submenu']; ?></a></li>
+                    <?php endif; ?>
+                  <?php endforeach; ?>
+                  </ul>
+                </li>
+                <?php endforeach; ?>
+              <?php endif; ?>
+              
+              <?php if (isset($menus)) : ?>
+                <?php foreach ($menus as $menu) : ?>
+                  <?php if (!empty($menu['menu_titulo'])) : ?>
+                    <li class="label"><?= $menu['menu_titulo']; ?></li>
+                  <?php endif; ?>                
+                  <li class=""><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> <?= $menu['nome_menu']; ?> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                      <?= $sublink; ?>
+                      <?php foreach ($menu['submenus'] as $submenu) : ?>
+                        <li><a href='<?= site_url("admin/leanCRUD/{$submenu['tabela_id']}"); ?>'><?= $submenu['nome_submenu']; ?></a></li>
+                      <?php endforeach; ?>
                     </ul>
                   </li>
-                  <?php endif; ?>
-
-                  <li class="label">Perfil</li>
-                  <li><a href="<?= base_url('logout') ?>"><i class="ti-close"></i> Logout</a></li>
+                <?php endforeach; ?>
+              <?php endif; ?>
+              
+                <li class="label"><?= $_SESSION['username'] ?></li>
+                <li><a href="<?= base_url('logout') ?>"><i class="ti-close"></i> Logout</a></li>
               </ul>
           </div>
       </div>
@@ -207,6 +226,26 @@
                               </div>
                           </div>
                       </div>
+
+                      <?php foreach ($menus as $menu) : ?>
+                        <?php if ($menu['group_user_ref_id'] === '1') : ?>
+                          <div class="col-lg-3">
+                            <div class="card">
+                              <div class="stat-widget-two">
+                                <div class="stat-content">
+                                  <div class="stat-text">Cadastro</div>
+                                  <div class="stat-digit"><a href='<?= site_url("admin/leanCRUD/{$menu['tabela_id']}"); ?>'><?= $menu['display']; ?></a></div>
+                                </div>
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <?php endif; ?>
+                      <?php endforeach; ?>
+
+                      
                   </div>
                   <!-- /# row -->
                 <?php else : ?>
@@ -247,7 +286,7 @@
       </form>
   </div>
   <!-- jquery vendor -->
-  <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/jquery.min.js'); ?>"></script>
+  
   <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/jquery.nanoscroller.min.js'); ?>"></script>
   <!-- nano scroller -->
   <script src="<?= base_url('assets/tamplate_focus/assets/js/lib/menubar/sidebar.js'); ?>"></script>

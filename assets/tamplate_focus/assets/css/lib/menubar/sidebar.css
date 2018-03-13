@@ -71,8 +71,10 @@
 }
 
 .sidebar .nano-content>ul li>ul {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     display: none;
-    background: rgba(52,57,87,0.2)!important;
+    background: rgba(52,57,87,0.8)!important;
 }
 
 .sidebar .nano-content>ul li.open>ul {
@@ -82,7 +84,7 @@
 .sidebar .nano-content>ul li>a {
     display: block;
     cursor: pointer;
-    color: #BDBDC7;
+    color: #E3E3E8;
     padding: 10px;
     line-height: 30px;
     border-bottom: none;
