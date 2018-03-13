@@ -48,6 +48,7 @@
 </head>
 
 <body>
+  <!-- # sidebar -->
   <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
       <div class="nano">
           <div class="nano-content">
@@ -77,7 +78,7 @@
                   <?php if (!empty($menu['menu_titulo'])) : ?>
                     <li class="label"><?= $menu['menu_titulo']; ?></li>
                   <?php endif; ?>                
-                  <li class=""><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> <?= $menu['nome_menu']; ?> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                  <li class=""><a class="sidebar-sub-toggle"><i class="<?= $menu['tag_i']; ?>"></i> <?= $menu['nome_menu']; ?> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                       <?php foreach ($menu['submenus'] as $submenu) : ?>
                         <li><a href='<?= site_url("admin/leanCRUD/{$submenu['tabela_id']}"); ?>'><?= $submenu['nome_submenu']; ?></a></li>
@@ -95,7 +96,7 @@
   </div>
   <!-- /# sidebar -->
 
-
+  <!-- # cabeçalho -->
   <div class="header">
       <div class="container-fluid">
           <div class="row">
@@ -109,7 +110,7 @@
                   </div>
                   <div class="float-right">
                       <ul>
-
+						  <!--
                           <li class="header-icon dib"><i class="ti-bell"></i>
                               <div class="drop-down">
                                   <div class="dropdown-content-heading">
@@ -135,6 +136,7 @@
                               </div>
                           </li>
                           <li class="header-icon dib"><i class="ti-email"></i>
+						  -->
                               <div class="drop-down">
                                   <div class="dropdown-content-heading">
                                       <span class="text-left">2 New Messages</span>
@@ -159,16 +161,14 @@
                                   </div>
                               </div>
                           </li>
-                          <li class="header-icon dib"><span class="user-avatar">John <i class="ti-angle-down f-s-10"></i></span>
+                          <li class="header-icon dib"><span class="user-avatar"><?= $_SESSION['username'] ?> <i class="ti-angle-down f-s-10"></i></span>
                               <div class="drop-down dropdown-profile">
-                                  <div class="dropdown-content-heading">
-                                      <span class="text-left">Upgrade Now</span>
-                                      <p class="trial-day">30 Days Trail</p>
-                                  </div>
+                                  <!--<div class="dropdown-content-heading">
+                                  </div>-->
                                   <div class="dropdown-content-body">
                                       <ul>
-                                          <li><a href="#"><i class="ti-user"></i> <span>Profile</span></a></li>
-                                          <li><a href="#"><i class="ti-power-off"></i> <span>Logout</span></a></li>
+                                          <!--<li><a href="#"><i class="ti-user"></i> <span>Profile</span></a></li>-->
+                                          <li><a href="<?= base_url('logout') ?>"><i class="ti-power-off"></i> <span>Logout</span></a></li>
                                       </ul>
                                   </div>
                               </div>
@@ -179,7 +179,7 @@
           </div>
       </div>
   </div>
-
+  <!-- /# cabeçalho -->
 
   <div class="content-wrap">
       <div class="main">
@@ -198,8 +198,15 @@
                       <div class="page-header">
                           <div class="page-title">
                               <ol class="breadcrumb">
-                                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                  <li class="breadcrumb-item active">Home</li>
+								  <?php if (isset($tabelas)) : ?>
+										<?php foreach($tabelas as $key => $tabela) : ?>
+											<?php if ($key == (count($tabelas) - 1)) : ?>
+												<li class="breadcrumb-item active"><?= $tabela['display']; ?></li>
+											<?php else : ?>
+												<li class="breadcrumb-item"><a href="<?= site_url("admin/leanCRUD/{$tabela['tabela_id']}"); ?>"><?= $tabela['display']; ?></a></li>
+											<?php endif; ?>
+										<?php endforeach; ?>
+									<?php endif; ?>
                               </ol>
                           </div>
                       </div>
@@ -254,8 +261,12 @@
                     <div class="col-lg-12">
                         <div class="card nestable-cart">
                             <div class="card-title">
-                                <?php if (isset($tabela)) : ?>
-                                <h4><?= $tabela['display']; ?></h4>
+                                <?php if (isset($tabelas)) : ?>
+									<?php foreach($tabelas as $key => $tabela) : ?>
+										<?php if ($key == (count($tabelas) - 1)) : ?>
+											<h4><?= $tabela['display']; ?></h4>
+										<?php endif; ?>
+									<?php endforeach; ?>
                                 <?php endif; ?>
                                 <div class="card-title-right-icon">
                                     <?php echo $output; ?>

@@ -449,11 +449,12 @@ class Admin extends CI_Controller {
 	}
 
 	function montar_tabela($tabela_id){
-		$this->data['tabela'] = $this->lean_crud_model->get_tabelaById($tabela_id);
+		$this->data['tabelas'][] = $this->lean_crud_model->get_tabelaById($tabela_id);
 	}
 
 	function montar_tabela_by_foreignkey($foreignkey_id){
 		$foreignkKey = $this->lean_crud_model->get_foreignKeyByFkId($foreignkey_id);
+		$this->montar_tabela($foreignkKey['tabela_ref_id']);
 		$this->montar_tabela($foreignkKey['tabela_id']);
 	}
 }

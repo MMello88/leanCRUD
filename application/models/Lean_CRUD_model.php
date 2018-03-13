@@ -162,6 +162,7 @@ class Lean_CRUD_model extends CI_Model {
 								  "       t.tabela, 				" .
 								  "       t.display display_tabela, " .
 								  "       t.tabela_id,				" .
+								  "       cr.tabela_ref_id,         " .
 								  "       cr.coluna coluna_ref,     " .
                                   "       cr.display display_coluna_ref, " .
                                   "       cr.coluna_id coluna_id_ref     " .
