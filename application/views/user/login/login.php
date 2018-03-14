@@ -22,8 +22,8 @@
         
         <?= form_open() ?>
 			<div class="form-group">
-				<label for="username">Username</label>
-				<input type="text" class="form-control" id="username" name="username" placeholder="Your username" required>
+				<label for="email">E-mail</label>
+				<input type="text" class="form-control" id="email" name="email" placeholder="Your e-mail" required>
 			</div>
 			<div class="form-group">
 				<label for="password">Password</label>

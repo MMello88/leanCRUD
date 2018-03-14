@@ -45,15 +45,15 @@ class User_model extends CI_Model {
 	 * resolve_user_login function.
 	 * 
 	 * @access public
-	 * @param mixed $username
+	 * @param mixed $email
 	 * @param mixed $password
 	 * @return bool true on success, false on failure
 	 */
-	public function resolve_user_login($username, $password) {
+	public function resolve_user_login($email, $password) {
 		
 		$this->db->select('password');
 		$this->db->from('lean_users');
-		$this->db->where('username', $username);
+		$this->db->where('email', $email);
 		$hash = $this->db->get()->row('password');
 		
 		return $this->verify_password_hash($password, $hash);
@@ -64,14 +64,14 @@ class User_model extends CI_Model {
 	 * get_user_id_from_username function.
 	 * 
 	 * @access public
-	 * @param mixed $username
+	 * @param mixed $email
 	 * @return int the user user_id
 	 */
-	public function get_user_id_from_username($username) {
+	public function get_user_id_from_email($email) {
 		
 		$this->db->select('user_id');
 		$this->db->from('lean_users');
-		$this->db->where('username', $username);
+		$this->db->where('email', $email);
 
 		return $this->db->get()->row('user_id');
 		

@@ -43,8 +43,8 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		
 		// set validation rules
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[lean_users.username]', array('is_unique' => 'This username already exists. Please choose another one.'));
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[lean_users.email]');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[lean_users.email]', array('is_unique' => 'Este E-mail já existe. Por favor, escolha outro.'));
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
 		
@@ -101,8 +101,8 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		
 		// set validation rules
-		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
 		
 		if ($this->form_validation->run() == false) {
 			
@@ -114,12 +114,12 @@ class User extends CI_Controller {
 		} else {
 			
 			// set variables from the form
-			$username = $this->input->post('username');
+			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 			
-			if ($this->user_model->resolve_user_login($username, $password)) {
+			if ($this->user_model->resolve_user_login($email, $password)) {
 				
-				$user_id = $this->user_model->get_user_id_from_username($username);
+				$user_id = $this->user_model->get_user_id_from_email($email);
 				$user    = $this->user_model->get_user($user_id);
 				
 				// set session user datas
