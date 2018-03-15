@@ -101,6 +101,34 @@ class Lean_CRUD_model extends CI_Model {
 
 		return $this->db->insert('lean_coluna', $data);
 	}
+
+	public function insert_coluna_fk($tabela_id, $nome_coluna, $display){
+		$data = array(
+			'coluna_id' => null,
+		    'tabela_ref_id' => $tabela_id,
+		    'coluna' => $nome_coluna,
+		    'display' => $display,
+		    'PK' => 'Nao',
+		    'FK' => 'Sim',
+		    'data_type' => 'int',
+		    'length' => '11',
+		    'not_null' => 'Sim',
+		    'auto_incr' => 'Nao'
+		);
+
+		$chave = $this->db->insert('lean_coluna', $data);
+
+		$data = array(
+			'foreignkey_id' => null, 
+			'coluna_ref_id' => $chave, 
+			'tabela_fk_id' => 1, 
+			'coluna_fk_id' => 1, 
+			'coluna_display_fk_id' => 2,
+			'tabela_pai' => 'Nao'
+		);
+
+		return $this->db->insert('lean_foreignkey', $data);
+	}
 	/* fim das funcões para coluna */
 
 	/* funções para Executar Script */

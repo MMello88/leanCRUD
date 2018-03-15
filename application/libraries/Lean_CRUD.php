@@ -25,7 +25,7 @@ class Lean_CRUD
 			array_push($cols, $coluna['coluna']);
 		}
 
-		$crud = $this->_getGroceryCRUD(strtolower($row['tabela']), $row['display']);
+		$crud = $this->_getGroceryCRUD(strtolower($row['tabela']), $row['display'], $row['dm_filtrar_usuario']);
 
 		$crud = $this->_getRequeredField($crud, $colunas);
 
@@ -36,7 +36,8 @@ class Lean_CRUD
 		$crud = $this->_getRelation($crud, $colunas);
 
 		$crud = $this->_getBtnActionTabelasFilha($crud, $row['tabela_id']);
-				
+			
+
 		$this->output = $crud->render();
 	}
 
@@ -209,11 +210,18 @@ class Lean_CRUD
 		return $crud;
 	}
 
-	protected function _getGroceryCRUD($nomeTabela, $subject)
+	protected function _getGroceryCRUD($nomeTabela, $subject, $filtraPorUsuario)
 	{
 		$crud = new grocery_CRUD();
 
 		$crud->set_table($nomeTabela);
+		
+		if ($_SESSION['group_user_ref_id'] !== '1')	{
+			if ($filtraPorUsuario == 'Sim'){
+				$crud->where('user_id',$_SESSION['user_id']);
+			}
+		}
+
 		$crud->set_subject($subject);
 
 		return $crud;

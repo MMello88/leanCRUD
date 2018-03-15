@@ -63,14 +63,15 @@ class Admin extends CI_Controller {
 		
 		$crud->display_as('tabela_id','Id');
 		$crud->display_as('tabela','Tabela');
-		$crud->display_as('display','Nome de Apresentação');
+		$crud->display_as('display','Nome de Apresentação'); 
+		$crud->display_as('dm_filtrar_usuario','Filtrar por Código do Usuário');
 
-		$crud->columns('tabela_id','tabela','display');
+		$crud->columns('tabela_id','tabela','display','dm_filtrar_usuario');
 
 		$crud->set_relation('group_user_ref_id', 'lean_group_users', 'groupname');
 
-		$crud->add_fields('tabela','display', 'group_user_ref_id');
-		$crud->edit_fields('tabela','display', 'group_user_ref_id');
+		$crud->add_fields('tabela','display', 'group_user_ref_id', 'dm_filtrar_usuario');
+		$crud->edit_fields('tabela','display', 'group_user_ref_id', 'dm_filtrar_usuario');
 
 		 
 		$crud->add_action('Colunas', '', 'admin/lean_coluna','ui-icon-plus');
@@ -258,15 +259,37 @@ class Admin extends CI_Controller {
 
 		$campo_pk = $tabela."_id";
 
-		$script = "
-		CREATE TABLE IF NOT EXISTS `$tabela` (
-			`$campo_pk` INT NOT NULL AUTO_INCREMENT,
-			PRIMARY KEY (`$campo_pk`)
-		) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci;";
+		if ($dm_filtrar_usuario === 'Nao') {
+			$script = "
+			CREATE TABLE IF NOT EXISTS `$tabela` (
+				`$campo_pk` INT NOT NULL AUTO_INCREMENT,
+				PRIMARY KEY (`$campo_pk`)
+			) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-		$this->lean_crud_model->ExecutarScript($primary_key, $script);
+			$this->lean_crud_model->ExecutarScript($primary_key, $script);
 
-		$this->lean_crud_model->insert_coluna_pk($primary_key, $tabela);
+			$this->lean_crud_model->insert_coluna_pk($primary_key, $tabela);
+		} else {
+			$script = "
+			CREATE TABLE IF NOT EXISTS `$tabela` (
+				`$campo_pk` INT NOT NULL AUTO_INCREMENT,
+				`user_id` INT NOT NULL,
+				PRIMARY KEY (`$campo_pk`),
+				FOREIGN KEY (user_id) REFERENCES lean_users(user_id)
+			) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci;";
+
+			$this->lean_crud_model->ExecutarScript($primary_key, $script);
+
+			$this->lean_crud_model->insert_coluna_pk($primary_key, $tabela);
+
+			$this->lean_crud_model->insert_coluna_fk($primary_key, 'user_id', 'Nome do Usuário');
+		}
+
+		
+
+		if ($dm_filtrar_usuario === 'Sim') {
+			
+		}
 	}
 
 	function script_tabela_update($post_array,$primary_key)
