@@ -259,37 +259,21 @@ class Admin extends CI_Controller {
 
 		$campo_pk = $tabela."_id";
 
-		if ($dm_filtrar_usuario === 'Nao') {
-			$script = "
-			CREATE TABLE IF NOT EXISTS `$tabela` (
-				`$campo_pk` INT NOT NULL AUTO_INCREMENT,
-				PRIMARY KEY (`$campo_pk`)
-			) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-			$this->lean_crud_model->ExecutarScript($primary_key, $script);
+		$script = "
+		CREATE TABLE IF NOT EXISTS `$tabela` (
+			`$campo_pk` INT NOT NULL AUTO_INCREMENT,
+			`user_id` INT NOT NULL,
+			PRIMARY KEY (`$campo_pk`),
+			FOREIGN KEY (user_id) REFERENCES lean_users(user_id)
+		) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-			$this->lean_crud_model->insert_coluna_pk($primary_key, $tabela);
-		} else {
-			$script = "
-			CREATE TABLE IF NOT EXISTS `$tabela` (
-				`$campo_pk` INT NOT NULL AUTO_INCREMENT,
-				`user_id` INT NOT NULL,
-				PRIMARY KEY (`$campo_pk`),
-				FOREIGN KEY (user_id) REFERENCES lean_users(user_id)
-			) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci;";
+		$this->lean_crud_model->ExecutarScript($primary_key, $script);
 
-			$this->lean_crud_model->ExecutarScript($primary_key, $script);
+		$this->lean_crud_model->insert_coluna_pk($primary_key, $tabela);
 
-			$this->lean_crud_model->insert_coluna_pk($primary_key, $tabela);
-
-			$this->lean_crud_model->insert_coluna_fk($primary_key, 'user_id', 'Nome do Usuário');
-		}
-
+		$this->lean_crud_model->insert_coluna_fk($primary_key, 'user_id', 'Nome do Usuário');
 		
-
-		if ($dm_filtrar_usuario === 'Sim') {
-			
-		}
 	}
 
 	function script_tabela_update($post_array,$primary_key)
