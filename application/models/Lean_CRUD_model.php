@@ -116,13 +116,13 @@ class Lean_CRUD_model extends CI_Model {
 		    'auto_incr' => 'Nao'
 		);
 
-		$chave = $this->db->insert('lean_coluna', $data);
+		$this->db->insert('lean_coluna', $data);
 
 		$data = array(
 			'foreignkey_id' => null, 
-			'coluna_ref_id' => $chave, 
-			'tabela_fk_id' => 1, 
-			'coluna_fk_id' => 1, 
+			'coluna_ref_id' => $this->db->insert_id(), 
+			'tabela_fk_id'  => 1, 
+			'coluna_fk_id'  => 1, 
 			'coluna_display_fk_id' => 2,
 			'tabela_pai' => 'Nao'
 		);
