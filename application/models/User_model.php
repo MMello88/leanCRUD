@@ -34,7 +34,7 @@ class User_model extends CI_Model {
 			'email'      => $email,
 			'password'   => $this->hash_password($password),
 			'created_at' => date('Y-m-j H:i:s'),
-			'group_user_ref_id' => 2,
+			'group_user_ref_id' => 3,
 		);
 		
 		return $this->db->insert('lean_users', $data);

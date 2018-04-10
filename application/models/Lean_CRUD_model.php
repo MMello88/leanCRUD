@@ -3,11 +3,18 @@
 class Lean_CRUD_model extends CI_Model {
 
 
-	public function get_menu($group_user_ref_id, $use_igual = TRUE){
-		if ($use_igual === TRUE) 
+	public function get_menu($group_user_ref_id){
+		if ($group_user_ref_id === 1){
+			$query = $this->db->get('lean_menu');
+			
+		} else if ($group_user_ref_id === 2){
+			$query = $this->db->select('*')
+		    	->where_in('group_user_ref_id', array($group_user_ref_id,'3'))
+		   		->get('lean_menu');
+		} else if ($group_user_ref_id === 3){
 			$query = $this->db->get_where('lean_menu', array('group_user_ref_id' => $group_user_ref_id));
-		else
-			$query = $this->db->get_where('lean_menu', array('group_user_ref_id !=' => $group_user_ref_id));
+		}
+			
 		
 	    $rows = $query->result_array();
 	    foreach ($rows as $key => $row) {
@@ -53,9 +60,9 @@ class Lean_CRUD_model extends CI_Model {
 	/* fim das funções para tabela*/
 
 	/* funcões para coluna */
-	public function get_colunas($tabela_ref_id)
+	public function get_colunas($tabela_id)
 	{
-		$query = $this->db->get_where('lean_coluna', array('tabela_ref_id' => $tabela_ref_id));
+		$query = $this->db->get_where('lean_coluna', array('tabela_id' => $tabela_id));
 		return $query->result_array();
 	}
 
@@ -79,7 +86,7 @@ class Lean_CRUD_model extends CI_Model {
 							      "       c.coluna,    " .
 							      "       c.display display_coluna " .
 							      "  FROM lean_coluna c " .
-							      "  LEFT JOIN lean_tabela t ON (t.tabela_id = c.tabela_ref_id) " .
+							      "  LEFT JOIN lean_tabela t ON (t.tabela_id = c.tabela_id) " .
 							      " WHERE c.coluna_id = $coluna_id");
 		return $query->row_array();
 	}
@@ -88,7 +95,7 @@ class Lean_CRUD_model extends CI_Model {
 	{
 		$data = array(
 			'coluna_id' => null,
-		    'tabela_ref_id' => $tabela_id,
+		    'tabela_id' => $tabela_id,
 		    'coluna' => $tabela.'_id',
 		    'display' => 'Id ' . $tabela,
 		    'PK' => 'Sim',
@@ -105,7 +112,7 @@ class Lean_CRUD_model extends CI_Model {
 	public function insert_coluna_fk($tabela_id, $nome_coluna, $display){
 		$data = array(
 			'coluna_id' => null,
-		    'tabela_ref_id' => $tabela_id,
+		    'tabela_id' => $tabela_id,
 		    'coluna' => $nome_coluna,
 		    'display' => $display,
 		    'PK' => 'Nao',
@@ -184,19 +191,20 @@ class Lean_CRUD_model extends CI_Model {
  	/* funções para Foreign Key */
  	public function get_foreignKeyByFkId($foreignkey_id)
 	{
-		$query = $this->db->query("SELECT c.coluna,                 " .
-								  "       c.display display_coluna, " .
-								  "       c.coluna_id, 				" .
-								  "       t.tabela, 				" .
-								  "       t.display display_tabela, " .
-								  "       t.tabela_id,				" .
-								  "       cr.tabela_ref_id,         " .
-								  "       cr.coluna coluna_ref,     " .
+		$query = $this->db->query("SELECT c.coluna,                   " .
+								  "       c.display display_coluna,   " .
+								  "       c.coluna_id, 				  " .
+								  "       t.tabela, 				  " .
+								  "       t.dm_filtrar_usuario,       " .
+								  "       t.display display_tabela,   " .
+								  "       t.tabela_id,				  " .
+								  "       cr.tabela_id tabela_ref_id, " .
+								  "       cr.coluna coluna_ref,       " .
                                   "       cr.display display_coluna_ref, " .
                                   "       cr.coluna_id coluna_id_ref     " .
 								  "  FROM lean_foreignkey f 				" .
 								  "  LEFT JOIN lean_coluna c ON (c.coluna_id = f.coluna_ref_id)  " .
-								  "  LEFT JOIN lean_tabela t ON (t.tabela_id = c.tabela_ref_id)  " .
+								  "  LEFT JOIN lean_tabela t ON (t.tabela_id = c.tabela_id)  " .
 								  "  LEFT JOIN lean_coluna cr ON (cr.coluna_id = f.coluna_fk_id) " .
 								  " WHERE f.foreignkey_id = $foreignkey_id " );
 	  	return $query->row_array();
@@ -232,8 +240,8 @@ class Lean_CRUD_model extends CI_Model {
 							    "        f.tabela_pai          " .
 							    "   FROM lean_foreignkey f          " .
 							    "   JOIN lean_tabela t ON (t.tabela_id = f.tabela_fk_id) " .
-							    "   JOIN lean_coluna c ON (c.coluna_id = f.coluna_fk_id AND c.tabela_ref_id = f.tabela_fk_id) " .
-							    "   JOIN lean_coluna cc ON (cc.coluna_id = f.coluna_display_fk_id AND cc.tabela_ref_id = f.tabela_fk_id) " .
+							    "   JOIN lean_coluna c ON (c.coluna_id = f.coluna_fk_id AND c.tabela_id = f.tabela_fk_id) " .
+							    "   JOIN lean_coluna cc ON (cc.coluna_id = f.coluna_display_fk_id AND cc.tabela_id = f.tabela_fk_id) " .
 							    "  WHERE f.coluna_ref_id = $coluna_ref_id " .
 							    "    AND f.tabela_pai = $tabela_pai " );
 	  return $query->result_array();

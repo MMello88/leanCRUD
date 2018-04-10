@@ -81,7 +81,11 @@
                   <li class=""><a class="sidebar-sub-toggle"><i class="<?= $menu['tag_i']; ?>"></i> <?= $menu['nome_menu']; ?> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                       <?php foreach ($menu['submenus'] as $submenu) : ?>
-                        <li><a href='<?= site_url("admin/leanCRUD/{$submenu['tabela_id']}"); ?>'><?= $submenu['nome_submenu']; ?></a></li>
+                        <?php if (empty($submenu['slug'])) : ?>
+                          <li><a href='<?= site_url("admin/leanCRUD/{$submenu['tabela_id']}"); ?>'><?= $submenu['nome_submenu']; ?></a></li>
+                        <?php else : ?> 
+                          <li><a href='<?= site_url("admin/{$submenu['slug']}"); ?>'><?= $submenu['nome_submenu']; ?></a></li>
+                        <?php endif; ?>
                       <?php endforeach; ?>
                     </ul>
                   </li>
@@ -234,23 +238,27 @@
                           </div>
                       </div>
 
-                      <?php foreach ($menus as $menu) : ?>
-                        <?php if ($menu['group_user_ref_id'] === '1') : ?>
-                          <div class="col-lg-3">
-                            <div class="card">
-                              <div class="stat-widget-two">
-                                <div class="stat-content">
-                                  <div class="stat-text">Cadastro</div>
-                                  <div class="stat-digit"><a href='<?= site_url("admin/leanCRUD/{$menu['tabela_id']}"); ?>'><?= $menu['display']; ?></a></div>
-                                </div>
-                                <div class="progress">
-                                  <div class="progress-bar progress-bar-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                      <?php /*
+                      <?php if (isset($menus)) :  print_r($menus)?>
+                        <?php foreach ($menus as $menu) : ?>
+                          <?php if ($menu['group_user_ref_id'] === '1') : ?>
+                            <div class="col-lg-3">
+                              <div class="card">
+                                <div class="stat-widget-two">
+                                  <div class="stat-content">
+                                    <div class="stat-text">Cadastro</div>
+                                    <div class="stat-digit"><a href='<?= site_url("admin/leanCRUD/{$menu['tabela_id']}"); ?>'><?= $menu['display']; ?></a></div>
+                                  </div>
+                                  <div class="progress">
+                                    <div class="progress-bar progress-bar-success w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        <?php endif; ?>
-                      <?php endforeach; ?>
+                          <?php endif; ?>
+                        <?php endforeach; ?>
+                      <?php endif; ?>
+                      */ ?>
 
                       
                   </div>

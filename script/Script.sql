@@ -59,7 +59,7 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 
 CREATE TABLE `lean_coluna` (
   `coluna_id` int(11) NOT NULL,
-  `tabela_ref_id` int(11) NOT NULL,
+  `tabela_id` int(11) NOT NULL,
   `coluna` varchar(255) NOT NULL,
   `display` varchar(255) NOT NULL,
   `PK` enum('Sim','Nao') NOT NULL DEFAULT 'Nao',
@@ -77,7 +77,7 @@ CREATE TABLE `lean_coluna` (
 -- Extraindo dados da tabela `lean_coluna`
 --
 
-INSERT INTO `lean_coluna` (`coluna_id`, `tabela_ref_id`, `coluna`, `display`, `PK`, `FK`, `data_type`, `length`, `not_null`, `auto_incr`, `comment`, `default`, `show_grid`) VALUES
+INSERT INTO `lean_coluna` (`coluna_id`, `tabela_id`, `coluna`, `display`, `PK`, `FK`, `data_type`, `length`, `not_null`, `auto_incr`, `comment`, `default`, `show_grid`) VALUES
 (1, 1, 'user_id', 'Id Usuário', 'Sim', 'Nao', 'int', '11', 'Sim', 'Sim', NULL, NULL, 'Nao'),
 (2, 1, 'username', 'Nome do Usuário', 'Nao', 'Nao', 'varchar', '255', 'Sim', 'Nao', NULL, NULL, 'Sim'),
 (3, 1, 'email', 'E-mail', 'Nao', 'Nao', 'varchar', '255', 'Sim', 'Nao', NULL, NULL, 'Sim'),
@@ -101,7 +101,7 @@ INSERT INTO `lean_coluna` (`coluna_id`, `tabela_ref_id`, `coluna`, `display`, `P
 (22, 4, 'group_user_ref_id', 'Grupo de Usuario', 'Nao', 'Sim', 'int', '11', 'Sim', 'Nao', NULL, NULL, 'Nao'),
 (23, 4, 'slug', 'Slug', 'Nao', 'Nao', 'varchar', '128', 'Nao', 'Nao', NULL, NULL, 'Sim'),
 (24, 5, 'coluna_id', 'Id Coluna', 'Sim', 'Nao', 'int', '11', 'Sim', 'Sim', NULL, NULL, 'Nao'),
-(25, 5, 'tabela_ref_id', 'Id Tabela Ref', 'Nao', 'Sim', 'int', '11', 'Sim', 'Nao', NULL, NULL, 'Sim'),
+(25, 5, 'tabela_id', 'Id Tabela Ref', 'Nao', 'Sim', 'int', '11', 'Sim', 'Nao', NULL, NULL, 'Sim'),
 (26, 5, 'coluna', 'Nome da Coluna', 'Nao', 'Nao', 'varchar', '255', 'Sim', 'Nao', NULL, NULL, 'Sim'),
 (27, 5, 'display', 'Nome de Apresentação', 'Nao', 'Nao', 'varchar', '255', 'Sim', 'Nao', NULL, NULL, 'Sim'),
 (28, 5, 'PK', 'Chave Primária', 'Nao', 'Nao', 'enum', '''Sim'',''Nao''', 'Sim', 'Nao', NULL, NULL, 'Sim'),
@@ -302,7 +302,7 @@ ALTER TABLE `ci_sessions`
 --
 ALTER TABLE `lean_coluna`
   ADD PRIMARY KEY (`coluna_id`),
-  ADD KEY `FK_lean_coluna_tabela_ref_id` (`tabela_ref_id`);
+  ADD KEY `FK_lean_coluna_tabela_id` (`tabela_id`);
 
 --
 -- Indexes for table `lean_foreignkey`
@@ -407,8 +407,8 @@ ALTER TABLE `lean_users`
 -- Limitadores para a tabela `lean_coluna`
 --
 ALTER TABLE `lean_coluna`
-  ADD CONSTRAINT `FK_lean_coluna_tabela_ref_id` FOREIGN KEY (`tabela_ref_id`) REFERENCES `lean_tabela` (`tabela_id`),
-  ADD CONSTRAINT `fk_tabela_coluna` FOREIGN KEY (`tabela_ref_id`) REFERENCES `lean_tabela` (`tabela_id`);
+  ADD CONSTRAINT `FK_lean_coluna_tabela_id` FOREIGN KEY (`tabela_id`) REFERENCES `lean_tabela` (`tabela_id`),
+  ADD CONSTRAINT `fk_tabela_coluna` FOREIGN KEY (`tabela_id`) REFERENCES `lean_tabela` (`tabela_id`);
 
 --
 -- Limitadores para a tabela `lean_foreignkey`

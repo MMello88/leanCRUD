@@ -92,7 +92,7 @@ class Admin extends CI_Controller {
 
 		$crud = new grocery_CRUD();
 
-		$crud->where('tabela_ref_id',$id);
+		$crud->where('tabela_id',$id);
 		$crud->set_table('lean_coluna');
 		$crud->set_subject('Cadastro de Colunas');
 		$crud->required_fields('coluna','display','PK','FK','data_type','not_null','auto_incr');
@@ -113,10 +113,10 @@ class Admin extends CI_Controller {
 
 		$crud->columns('coluna_id','coluna','display','PK','FK','data_type','length','not_null','auto_incr','comment','default','show_grid');
 
-		$crud->add_fields('coluna','display','FK','data_type','length','not_null','comment','default','show_grid', 'tabela_ref_id');
-		$crud->edit_fields('coluna','display','FK','data_type','length','not_null','comment','default','show_grid', 'tabela_ref_id');
+		$crud->add_fields('coluna','display','FK','data_type','length','not_null','comment','default','show_grid', 'tabela_id');
+		$crud->edit_fields('coluna','display','FK','data_type','length','not_null','comment','default','show_grid', 'tabela_id');
 
-		$crud->field_type('tabela_ref_id', 'hidden', $id);
+		$crud->field_type('tabela_id', 'hidden', $id);
 
 		$crud->add_action('Chave Estrangeira', '', 'admin/lean_foreignkey','ui-icon-plus');
 
@@ -175,7 +175,7 @@ class Admin extends CI_Controller {
 			'table_name' => 'lean_coluna', // table of state
 			'title' => 'coluna', // state title
 			'id_field' => 'coluna_id', // table of state: primary key
-			'relate' => 'tabela_ref_id', // table of state:
+			'relate' => 'tabela_id', // table of state:
 			'data-placeholder' => 'selecionar coluna' //dropdown's data-placeholder:
 			)
 		);
@@ -207,7 +207,7 @@ class Admin extends CI_Controller {
 			'table_name' => 'lean_coluna', // table of state
 			'title' => 'coluna', // state title
 			'id_field' => 'coluna_id', // table of state: primary key
-			'relate' => 'tabela_ref_id', // table of state:
+			'relate' => 'tabela_id', // table of state:
 			'data-placeholder' => 'selecionar coluna' //dropdown's data-placeholder:
 			)
 		);
@@ -305,7 +305,7 @@ class Admin extends CI_Controller {
 	{
 		extract($post_array);
 
-		$row_tabela = $this->lean_crud_model->get_tabelaById($tabela_ref_id);
+		$row_tabela = $this->lean_crud_model->get_tabelaById($tabela_id);
 
 		$tabela = $row_tabela['tabela'];
 
@@ -319,7 +319,7 @@ class Admin extends CI_Controller {
 
 		$script = "ALTER TABLE `$tabela` ADD COLUMN `$coluna` $data_type_length $default $not_null $comment;";
 
-		$this->lean_crud_model->ExecutarScript($tabela_ref_id, $script);
+		$this->lean_crud_model->ExecutarScript($tabela_id, $script);
 	}
 
 	function script_couna_update($post_array,$primary_key)
@@ -330,7 +330,7 @@ class Admin extends CI_Controller {
 
 		$coluna_old = $row_coluna['coluna'];
 
-		$row_tabela = $this->lean_crud_model->get_tabelaById($tabela_ref_id);
+		$row_tabela = $this->lean_crud_model->get_tabelaById($tabela_id);
 
 		$tabela = $row_tabela['tabela'];
 
@@ -344,7 +344,7 @@ class Admin extends CI_Controller {
 
 		$script = "ALTER TABLE `$tabela` CHANGE `$coluna_old` `$coluna` $data_type_length $default $not_null $comment;";
 
-		$this->lean_crud_model->ExecutarScript($tabela_ref_id, $script);
+		$this->lean_crud_model->ExecutarScript($tabela_id, $script);
 
 		return $post_array;
 	}
@@ -355,14 +355,14 @@ class Admin extends CI_Controller {
 
 		extract($row_coluna);
 
-		$row_tabela = $this->lean_crud_model->get_tabelaById($tabela_ref_id);
+		$row_tabela = $this->lean_crud_model->get_tabelaById($tabela_id);
 
 		$tabela = $row_tabela['tabela'];
 
 		$script = "ALTER TABLE `$tabela` DROP COLUMN `$coluna`";
 
 		if ($this->lean_crud_model->existe_coluna_na_tabela($tabela,$coluna) === TRUE)
-			$this->lean_crud_model->ExecutarScript($tabela_ref_id, $script);
+			$this->lean_crud_model->ExecutarScript($tabela_id, $script);
 	}
 
 	function script_foreignkey_insert($post_array,$primary_key)
@@ -371,7 +371,7 @@ class Admin extends CI_Controller {
 
 		$row_coluna_cons = $this->lean_crud_model->get_colunaById($coluna_ref_id);
 
-		$row_tabela_cons = $this->lean_crud_model->get_tabelaById($row_coluna_cons['tabela_ref_id']);
+		$row_tabela_cons = $this->lean_crud_model->get_tabelaById($row_coluna_cons['tabela_id']);
 
 		$tabela_cons = $row_tabela_cons['tabela'];
 
@@ -387,7 +387,7 @@ class Admin extends CI_Controller {
 
 		$script = "ALTER TABLE $tabela_cons ADD CONSTRAINT FK_$tabela_cons"."_"."$coluna_cons FOREIGN KEY ($coluna_cons) REFERENCES $tabela_ref($coluna_ref); ";
 
-		$this->lean_crud_model->ExecutarScript($row_coluna_cons['tabela_ref_id'], $script);
+		$this->lean_crud_model->ExecutarScript($row_coluna_cons['tabela_id'], $script);
 	}
 
 	function script_foreignkey_update($post_array,$primary_key)
@@ -397,7 +397,7 @@ class Admin extends CI_Controller {
 
 		$row_coluna_old = $this->lean_crud_model->get_colunaById($$foreignkey['coluna_ref_id']);
 
-		$row_tabela_old = $this->lean_crud_model->get_tabelaById($row_coluna_old['tabela_ref_id']);
+		$row_tabela_old = $this->lean_crud_model->get_tabelaById($row_coluna_old['tabela_id']);
 
 		$tabela_old = $row_tabela_old['tabela'];
 
@@ -407,7 +407,7 @@ class Admin extends CI_Controller {
 
 		$row_coluna_cons = $this->lean_crud_model->get_colunaById($coluna_ref_id);
 
-		$row_tabela_cons = $this->lean_crud_model->get_tabelaById($row_coluna_cons['tabela_ref_id']);
+		$row_tabela_cons = $this->lean_crud_model->get_tabelaById($row_coluna_cons['tabela_id']);
 
 		$tabela_cons = $row_tabela_cons['tabela'];
 
@@ -425,7 +425,7 @@ class Admin extends CI_Controller {
 					  ADD CONSTRAINT FK_$tabela_cons"."_"."$coluna_cons FOREIGN KEY ($coluna_cons) REFERENCES $tabela_ref($coluna_ref),
 					  DROP FOREIGN KEY FK_$tabela_old"."_"."$coluna_old;";
 
-		$this->lean_crud_model->ExecutarScript($row_coluna_cons['tabela_ref_id'], $script);
+		$this->lean_crud_model->ExecutarScript($row_coluna_cons['tabela_id'], $script);
 	}
 
 	function script_foreignkey_delete($primary_key)
@@ -434,7 +434,7 @@ class Admin extends CI_Controller {
 
 		$row_coluna_old = $this->lean_crud_model->get_colunaById($foreignkey['coluna_ref_id']);
 
-		$row_tabela_old = $this->lean_crud_model->get_tabelaById($row_coluna_old['tabela_ref_id']);
+		$row_tabela_old = $this->lean_crud_model->get_tabelaById($row_coluna_old['tabela_id']);
 
 		$tabela_old = $row_tabela_old['tabela'];
 
@@ -443,16 +443,12 @@ class Admin extends CI_Controller {
 		$script = "ALTER TABLE $tabela_old
   					DROP FOREIGN KEY FK_$tabela_old"."_"."$coluna_old; ";
 
-  		$this->lean_crud_model->ExecutarScript($row_coluna_old['tabela_ref_id'], $script);
+  		$this->lean_crud_model->ExecutarScript($row_coluna_old['tabela_id'], $script);
 	}
 
 	function montar_menu(){
-		if ($_SESSION['group_user_ref_id'] === 1){		
-			$this->data['menus_admin'] = $this->lean_crud_model->get_menu($_SESSION['group_user_ref_id']);
-			$this->data['menus'] = $this->lean_crud_model->get_menu($_SESSION['group_user_ref_id'], FALSE);
-		}else{
-			$this->data['menus'] = $this->lean_crud_model->get_menu($_SESSION['group_user_ref_id']);
-		}
+		$this->data['menus'] = $this->lean_crud_model->get_menu($_SESSION['group_user_ref_id']);
+		
 	}
 
 	function montar_tabela($tabela_id){

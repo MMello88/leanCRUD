@@ -20,11 +20,6 @@ class Lean_CRUD
 		$row = $this->ci->lean_crud_model->get_tabelaById($tabela_id);
 		$colunas = $this->ci->lean_crud_model->get_colunas($row['tabela_id']);
 
-		$cols = array();
-		foreach ($colunas as $coluna) {
-			array_push($cols, $coluna['coluna']);
-		}
-
 		$crud = $this->_getGroceryCRUD(strtolower($row['tabela']), $row['display'], $row['dm_filtrar_usuario']);
 
 		$crud = $this->_getRequeredField($crud, $colunas);
@@ -47,12 +42,7 @@ class Lean_CRUD
 
 		$colunas = $this->ci->lean_crud_model->get_colunas($foreignkKey['tabela_id']);
 
-		$cols = array();
-		foreach ($colunas as $coluna) {
-			array_push($cols, $coluna['coluna']);
-		}
-
-		$crud = $this->_getGroceryCRUD($foreignkKey['tabela'], $foreignkKey['display_tabela']);
+		$crud = $this->_getGroceryCRUD($foreignkKey['tabela'], $foreignkKey['display_tabela'], $foreignkKey['dm_filtrar_usuario']);
 
 		$crud->where($foreignkKey['coluna_ref'], $primary_key);
 
@@ -67,9 +57,8 @@ class Lean_CRUD
 		$crud->field_type($foreignkKey['coluna_ref'], 'hidden', $primary_key);
 
 		$crud = $this->_getBtnActionTabelasFilha($crud, $foreignkKey['tabela_id']);
-				
-		$this->output = $crud->render();
 
+		$this->output = $crud->render();
 	}
 
 	public function execute_SCRIPT()
@@ -215,10 +204,15 @@ class Lean_CRUD
 		$crud = new grocery_CRUD();
 
 		$crud->set_table($nomeTabela);
-		
-		if ($_SESSION['group_user_ref_id'] !== '1')	{
-			if ($filtraPorUsuario == 'Sim'){
-				$crud->where('user_id',$_SESSION['user_id']);
+		if ($_SESSION['group_user_ref_id'] !== 1){
+			if ($filtraPorUsuario === 'Sim'){
+				$group_user_ref_id = $_SESSION['group_user_ref_id'];
+				if ($_SESSION['group_user_ref_id'] == 2)
+					$where = "$nomeTabela.user_id IN (SELECT lean_users.user_id FROM lean_users WHERE lean_users.user_id = $nomeTabela.user_id AND lean_users.group_user_ref_id IN ($group_user_ref_id, 3))";
+				else
+					$where = "$nomeTabela.user_id IN (SELECT lean_users.user_id FROM lean_users WHERE lean_users.user_id = $nomeTabela.user_id AND lean_users.group_user_ref_id IN ($group_user_ref_id))";
+				//$crud->where($nomeTabela.'.user_id',$_SESSION['user_id']);
+				$crud->where($where);
 			}
 		}
 
